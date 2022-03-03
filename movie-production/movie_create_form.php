@@ -1,3 +1,29 @@
+<?php
+
+require_once("include/validate.php");
+
+
+session_start();
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"])) {
+
+    $data = $_SESSION["data"];
+    $errors = $_SESSION["errors"];
+}
+else {
+    $data = [];
+    $errors = [];
+}
+
+echo "<pre>\$data = ";
+print_r($data);
+echo "</pre>";
+
+echo "<pre>\$errors = ";
+print_r($errors);
+echo "</pre>";  
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
