@@ -1,6 +1,8 @@
 <?php
 
-require_once("include/patient_validate.php");
+require_once("include/movie_validate.php");
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     echo "Process request!!";
 
@@ -8,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     print_r($_POST);
     echo "</pre>";
 
-    [$patient, $errors] = patient_validate($_POST);
+    [$patient, $errors] = movie_validate($_POST);
 
     if (empty($errors)) {
         echo "<pre>\$patient = ";
@@ -23,7 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         session_start();
         $_SESSION["data"] = $patient;
         $_SESSION["errors"] = $errors;
-        header("Location: patient_create_form.php");
+        header("Location: movie_create_form.php");
     }
 }
 else {

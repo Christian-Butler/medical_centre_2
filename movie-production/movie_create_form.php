@@ -1,6 +1,6 @@
 <?php
 
-require_once("include/validate.php");
+require_once("include/movie_validate.php");
 
 
 session_start();
