@@ -1,3 +1,32 @@
+<?php
+require_once "include/database_connection.php";
+
+
+try{
+    $sql ="SELECT * FROM patient";
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute();
+
+    if (!$success)  {
+        throw new Exception("Could not retrieve all the patients");
+    }
+
+    $patients=$stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // echo "<pre>";
+    // print_r($patients);
+    // echo "</pre>";
+}
+catch (Exception $e) {
+    echo "Error" . $e->getMessage();
+}
+
+?>
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,61 +65,18 @@
                     </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($patients as $patient) { ?>
                     <tr>
-                        <td><input type="radio" name="patient_id" id="1"></td>
+                        <td><input type="radio" name="patient_id" value="<?= $patient["id"]?>"></td>
                         <td>
-                            <a href="patient_view.php">Alan McFadden</a>
+                            <a href="patient_view.php?id=<?= $patient ["id"] ?>"><?= $patient["name"] ?></a>
                         </td>
-                        <td>38 Liam McGearailt Pl, Duntahane Rd Fermoy Co Cork</td>
-                        <td>(025) 340776</td>
-                        <td>alan18550@boranora.com</td>
+                        <td><?= $patient["address"] ?></td>
+                        <td><?= $patient["phone"] ?></td>
+                        <td><?= $patient["email"] ?></td>
                     </tr>
-                    <tr>
-                        <td><input type="radio" name="patient_id" id="2"></td>
-                        <td>
-                            <a href="patient_view.php">Sanjay Charles</a>
-                        </td>
-                        <td>The Old Road Stud Tullow Co Waterford</td>
-                        <td>(058) 656344</td>
-                        <td>sanjay.charles@nevadaibm.com</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="patient_id" id="3"></td>
-                        <td>
-                            <a href="patient_view.php">Victoria Keith</a>
-                        </td>
-                        <td>Main Street Urlingford Co Kilkenny</td>
-                        <td>(0504) 21734</td>
-                        <td>vivky@tednbe.com</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="patient_id" id="4"></td>
-                        <td>
-                            <a href="patient_view.php">Sama Wells</a>
-                        </td>
-                        <td>14 Lower Main St Buncrana Co Donegal</td>
-                        <td>(090) 650758</td>
-                        <td>sama39@tigo.tk</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="patient_id" id="5"></td>
-                        <td>
-                            <a href="patient_view.php">Arham Mata</a>
-                        </td>
-                        <td>3 Ballysimon Road Limerick</td>
-                        <td>(061) 418133</td>
-                        <td>arham.mata@ermtia.com</td>
-                    </tr>
-                    <tr>
-                        <td><input type="radio" name="patient_id" id="6"></td>
-                        <td>
-                            <a href="patient_view.php">Nyla Bateman</a>
-                        </td>
-                        <td>Windmill Park Saintfield Co Down</td>
-                        <td>(048) 97511402</td>
-                        <td>nyla@cuenmex.com</td>
-                    </tr>
-                </tbody>
+                    <?php } ?> 
+                </tbody> 
             </table>
             <div class="mt-1 buttons">
                 <button class="button warning" type="submit" formaction="patient_update_form.php">Update</button> or

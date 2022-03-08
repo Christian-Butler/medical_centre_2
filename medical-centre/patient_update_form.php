@@ -1,3 +1,61 @@
+<?php
+require_once "include/database_connection.php";
+session_start();
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"]))
+{
+    $data=$_SESSION["data"];
+    $errors=$_SESSION["errors"];
+}
+else {
+    $patient_id =$_POST['patient_id'];
+    $sql ="SELECT * FROM patient WHERE id = :id";
+
+    $params = [
+        "id" => $patient_id
+    ];
+
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute($params);
+
+    if (!$success) 
+    {
+        throw new Exception("Could not retrieve selected patient");
+    }
+
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $data['preferences'] = explode(",", $data['preferences']);
+    $errors =[];
+
+    
+    $sql = "SELECT * FROM medical_centre";
+        
+    
+       
+    $stmt=$connection->prepare($sql);
+    $success =$stmt->execute();
+        
+    if (!$success) {
+        throw new Exception("Could not retrieve the medical centre");
+    }
+    
+    $centres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // echo "<pre>\$centres = ";
+    // print_r($centres);
+    // echo "</pre>";
+        
+       
+    
+}
+
+
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,49 +81,39 @@
 
     <main class="main">
         <form method="post" class="form">
+        <input type="hidden" name="id" value="<?= $data['id'] ?>">
             <h1 class="heading mb-1">Update existing patient</h1>
 
             <label for="name" class="label">Name</label>
-            <input id="name" type="text" name="name" class="narrow" value="">
+            <input id="name" type="text" name="name" class="narrow" value="<?php if (isset($data["name"])) echo $data["name"];?>">
             <div class="error"></div>
 
             <label for="address" class="label">Address</label>
-            <input id="address" type="text" name="address" class="wide" value="">
+            <input id="address" type="text" name="address" class="wide" value="<?php if (isset($data["address"])) echo $data["address"];?>">
             <div class="error"></div>
 
             <label for="phone" class="label">Phone</label>
-            <input id="phone" type="tel" name="phone" class="narrow" value="">
+            <input id="phone" type="tel" name="phone" class="narrow" value="<?php if (isset($data["phone"])) echo $data["phone"];?>">
             <div class="error"></div>
 
             <label for="email" class="label">Email</label>
-            <input id="email" type="email" name="email" class="wide" value="">
+            <input id="email" type="email" name="email" class="wide" value="<?php if (isset($data["email"])) echo $data["email"];?>">
             <div class="error"></div>
 
             <label for="dob" class="label">Date of birth</label>
-            <input id="dob" type="date" name="dob" class="narrow" value="">
+            <input id="dob" type="date" name="dob" class="narrow" value="<?php if (isset($data["dob"])) echo $data["dob"];?>">
             <div class="error"></div>
 
             <label for="centre" class="label">Medical centre</label>
             <div class="wide">
-                <select name="centre" id="">
-                    <option value="Talbot St Medical Centre">
-                        Talbot St Medical Centre
+            <select id="centre" name="centre">
+                <?php foreach($centres as $centre) { ?>
+                    <option value="<?= $centre['id'] ?>"
+                    <?php if (isset($data["centre"]) && $data["centre"] ==  $centre['id']) echo "selected";?>
+                    >
+                    <?= $centre['title'] ?>
                     </option>
-                    <option value="Highfield Alzheimer’s Care Centre">
-                        Highfield Alzheimer’s Care Centre
-                    </option>
-                    <option value="Swords Health Center">
-                        Swords Health Center
-                    </option>
-                    <option value="Greystones Medical Centre">
-                        Greystones Medical Centre
-                    </option>
-                    <option value="Bray Medical Centre">
-                        Bray Medical Centre
-                    </option>
-                    <option value="Merrion Fertility Clinic">
-                        Merrion Fertility Clinic
-                    </option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="error"></div>

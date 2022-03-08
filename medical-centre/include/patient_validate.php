@@ -109,23 +109,23 @@ function patient_validate($data) {
     //-------------------------------------------------------------------------
     // validate medical centre
     //-------------------------------------------------------------------------
-    if (empty($data["centre"])) {
-        $errors["centre"] = "The medical centre field is required.";
-    }
-    else {
+    // if (empty($data["centre"])) {
+    //     $errors["centre"] = "The medical centre field is required.";
+    // }
+    // else {
         $patient["centre"] = sanitize_input($data["centre"]);
-        $valid_centres = [
-            "Talbot St Medical Centre",
-            "Highfield Alzheimer’s Care Centre",
-            "Swords Health Center",
-            "Greystones Medical Centre",
-            "Bray Medical Centre",
-            "Merrion Fertility Clinic"
-        ];
-        if (!in_array($patient["centre"], $valid_centres)) {
-            $errors["centre"] = "Invalid medical centre option";
-        }
-    }
+    //     $valid_centres = [
+    //         "Talbot St Medical Centre",
+    //         "Highfield Alzheimer’s Care Centre",
+    //         "Swords Health Center",
+    //         "Greystones Medical Centre",
+    //         "Bray Medical Centre",
+    //         "Merrion Fertility Clinic"
+    //     ];
+    //     if (!in_array($patient["centre"], $valid_centres)) {
+    //         $errors["centre"] = "Invalid medical centre option";
+    //     }
+    // }
     
     //-------------------------------------------------------------------------
     // validate insurance

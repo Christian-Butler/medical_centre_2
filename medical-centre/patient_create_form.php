@@ -1,4 +1,7 @@
 <?php
+
+
+require_once "include/database_connection.php";
 session_start();
 if (isset($_SESSION["data"]) and isset($_SESSION["errors"])) {
 
@@ -10,13 +13,37 @@ else {
     $errors = [];
 }
 
-echo "<pre>\$data = ";
-print_r($data);
-echo "</pre>";
+try{
+    $sql = "SELECT * FROM medical_centre";
+    
 
-echo "<pre>\$errors = ";
-print_r($errors);
-echo "</pre>";  
+   
+    $stmt=$connection->prepare($sql);
+    $success =$stmt->execute();
+    
+    if (!$success) {
+        throw new Exception("Could not retrieve the medical centre");
+    }
+
+    $centres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    echo "<pre>\$centres = ";
+    print_r($centres);
+    echo "</pre>";
+    
+   
+}
+catch(Exception $e) {
+    echo "Error: " .$e->getMessage();
+}
+
+// echo "<pre>\$data = ";
+// print_r($data);
+// echo "</pre>";
+
+// echo "<pre>\$errors = ";
+// print_r($errors);
+// echo "</pre>";  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,32 +94,14 @@ echo "</pre>";
 
             <label for="centre" class="label">Medical centre</label>
             <div class="wide">
-                <select name="centre" id="">
-                    <option value="Talbot St Medical Centre"
-                    <?php if (isset($data["centre"]) && $data["centre"] == "Talbot St Medical Centre") echo "selected";?>
+                <select id="centre" name="centre">
+                <?php foreach($centres as $centre) { ?>
+                    <option value="<?= $centre['id'] ?>"
+                    <?php if (isset($data["centre"]) && $data["centre"] ==  $centre['id']) echo "selected";?>
                     >
-                        Talbot St Medical Centre
+                    <?= $centre['title'] ?>
                     </option>
-                    <option value="Highfield Alzheimer’s Care Centre"<?php if (isset($data["centre"]) && $data["centre"] == "Highfield Alzheimer’s Care Centre") echo "selected";?>
-                    >
-                        Highfield Alzheimer’s Care Centre
-                    </option>
-                    <option value="Swords Health Center"<?php if (isset($data["centre"]) && $data["centre"] == "Swords Health Center") echo "selected";?>
-                    >
-                        Swords Health Center
-                    </option>
-                    <option value="Greystones Medical Centre"<?php if (isset($data["centre"]) && $data["centre"] == "Greystones Medical Centre") echo "selected";?>
-                    >
-                        Greystones Medical Centre
-                    </option>
-                    <option value="Bray Medical Centre"<?php if (isset($data["centre"]) && $data["centre"] == "Bray Medical Centre") echo "selected";?>
-                    >
-                        Bray Medical Centre
-                    </option>
-                    <option value="Merrion Fertility Clinic"<?php if (isset($data["centre"]) && $data["centre"] == "Merrion Fertility Clinic") echo "selected";?>
-                    >
-                        Merrion Fertility Clinic
-                    </option>
+                    <?php } ?>
                 </select>
             </div>
             <div class="error"></div>
