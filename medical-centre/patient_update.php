@@ -2,7 +2,7 @@
 require_once "include/database_connection.php"
 
 
-require_once
+require_once "include/patient_validate.php"
 
 if ($_SERVER["REQUEST_METHOD"])
 

@@ -27,9 +27,9 @@ try{
 
     $centres = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    echo "<pre>\$centres = ";
-    print_r($centres);
-    echo "</pre>";
+    // echo "<pre>\$centres = ";
+    // print_r($centres);
+    // echo "</pre>";
     
    
 }

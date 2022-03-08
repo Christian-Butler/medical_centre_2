@@ -14,11 +14,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     [$patient, $errors] = patient_validate($_POST);
 
     if (empty($errors)) {
-        $sql ="INSERT INTO patient" . 
-         "(name, address, phone,email,dob,centre_id, insurance, preferences) VALUES " . 
-         "(:name, :address, :phone, :email,:dob, :centre_id, :insurance, :preferences)";
 
-        $params = [
+        try {
+            $center_id = intval($patient['centre']);
+            $preferences = implode(',' ,$patient['preferences']);
+        }
+        
+
+        $params = array (
             "name" => $patient["name"],
             "address" => $patient["address"],
             "phone" => $patient["phone"],
@@ -26,8 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "dob" => $patient["dob"],
             "centre_id" => $patient["centre"],
             "insurance" => $patient["insurance"],
-            "preferences" => implode(",",$patient ["preferences"])
-        ];
+            "preferences" => $preferences
+        );
+
+        $sql ="INSERT INTO patient" . 
+         "(name, address, phone,email,dob,centre_id, insurance, preferences) VALUES " . 
+         "(:name, :address, :phone, :email,:dob, :centre_id, :insurance, :preferences)";
         // echo "<pre>\$patient = ";
         // print_r($patient);
         // echo "</pre>";
@@ -43,6 +50,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // echo "</pre>";
         header("Location: patient_view_all.php");
     }
+    catch(PDOException $e){
+        echo "Error " . $e->getMessage();
+    }
+
+    $connection = null;
     else {
         session_start();
         $_SESSION["data"] = $patient;

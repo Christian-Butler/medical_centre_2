@@ -1,3 +1,33 @@
+<?php
+require_once "include/database_connection.php"
+
+try
+{
+    $sql ='SELECT * FROM medical_centre';
+
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute();
+    if (!sucess) {
+        throw new Exception("Failed to retrieve centres");
+    }
+    else {
+        $centres = $smt->fetchAll();
+
+    }
+    
+
+}
+catch(PDOException $e) {
+   echo "Error: " . $e->getMessage();
+}
+
+$connection = null;
+
+
+
+
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +64,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <?php
+
+                foreach($centres as $centre){
+                    echo "<tr>";
+                    echo "<td><a href='centre_view.php?id=".centre['id']."'>".centre['title']."</a></td>";
+                    echo "<td>".$centre['address']."</td>";
+                    echo "<td>".$centre['phone']."</td>";
+                    echo "<td>".$centre['type']."</td>";
+                    echo "</tr>";
+                }
+                ?>
+                <!-- <tr>
                     <td>
                         <a href="centre_view.php">Talbot St Medical Centre</a>
                     </td>
@@ -81,7 +122,7 @@
                     <td>60 Lower Mount Street, Dublin 2, Dublin, D02 NH93</td>
                     <td>(01) 663 5000</td>
                     <td>Fertility clinic</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </main>

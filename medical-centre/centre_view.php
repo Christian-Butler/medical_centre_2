@@ -1,3 +1,32 @@
+<?php
+
+require_once "include_once/database_connection.php";
+
+try
+{
+    $params = array(
+        'id' => $_GET['id']
+    );
+    $sql = 'SELECT * FROM medical_centre WHERE id = :id';
+
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->exceute($params);
+    if (!success) {
+        throw new Exception("Failed to retrieve centre");
+    }
+    else {
+        $centre = $stmt->getMessage();
+    }
+
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+$connection = null;
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,49 +51,52 @@
     </nav>
 
     <main class="main">
-        <h1 class="mt-1 mb-1">Talbot St Medical Centre</h1>
+        <h1 class="mt-1 mb-1"><?= $centre['title'] ?></h1>
             
         <table class="table">
             <tbody>
                 <tr>
                     <th>Address</th>
-                    <td>Unit 27, Irish Life Mall 1, Talbot St, Dublin, D01 P620</td>
+                    <td><?= $centre['address'] ?></td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>(01) 872 7087</td>
+                    <td><?= $centre['phone'] ?></td>
                 </tr>
                 <tr>
                     <th>Website</th>
                     <td>
-                        <a href="https://talbotstmedicalcentre.ie/" target="_blank">
-                            https://talbotstmedicalcentre.ie/
+                        <a href="<?= $centre['website_url'] ?>/" target="_blank">
+                        <?= $centre['website_url'] ?>
                         </a>
                     </td>
                 </tr>
                 <tr>
                     <th>Type</th>
-                    <td>Medical centre</td>
+                    <td><?= $centre['type'] ?></td>
                 </tr>
                 <tr>
                     <th>Description</th>
                     <td>
-                        Aliquam dui metus, efficitur a molestie ac, finibus nec nisl. 
-                        Donec sagittis a augue id gravida. Sed hendrerit tempus sapien. 
-                        Phasellus nec mi in enim scelerisque cursus et quis diam. 
-                        Mauris in gravida nulla. Nunc luctus risus eu nunc finibus 
-                        bibendum. Proin porta posuere venenatis. Donec sed finibus 
-                        purus, quis tempus nunc.
+                    <?= $centre['description'] ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Rating</th>
                     <td>
+                        <?php
+                        
+                        for($i=0; $i< $centre['rating']; $i++){
+                            echo '<img class="inline h1-1" src images/star_full.png" alt="Star rating">';
+
+                        }
+
+                        ?>
+                        <!-- <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
-                        <img class="inline h-1" src="images/star_full.png" alt="Star rating">
-                        <img class="inline h-1" src="images/star_empty.png" alt="No star rating">
+                        <img class="inline h-1" src="images/star_empty.png" alt="No star rating"> -->
                     </td>
                 </tr>
             </tbody>
