@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "root";  //this is password for MAMP, Xampp is blank (change this)
+$password = "";  //this is password for MAMP, Xampp is blank (change this)
 $dbname = "medical_centre";
   
 try{
@@ -9,7 +9,7 @@ try{
       // set the PDO error mode to exception
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       
-      //echo "Connected to database successfully";  
+     // echo "Connected to database successfully";  
 }
 catch(PDOException $e) {
     echo "Error: " . $e->getMessage();

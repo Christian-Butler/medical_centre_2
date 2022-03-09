@@ -20,13 +20,13 @@ try{
 
 
     $params = [
-        "id"  => $patient['centre_id']
+        "id"  => $patient['centre']
     ];
 
     $sql = "SELECT * FROM medical_centre WHERE id = :id";
     
     $params = [
-        "id" => $patient['centre_id']
+        "id" => $patient['centre']
     ];
 
     $stmt=$connection->prepare($sql);

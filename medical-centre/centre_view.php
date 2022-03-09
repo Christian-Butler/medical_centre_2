@@ -1,6 +1,6 @@
 <?php
 
-require_once "include_once/database_connection.php";
+require_once "include/database_connection.php";
 
 try
 {
@@ -10,12 +10,12 @@ try
     $sql = 'SELECT * FROM medical_centre WHERE id = :id';
 
     $stmt = $connection->prepare($sql);
-    $success = $stmt->exceute($params);
-    if (!success) {
+    $success = $stmt->execute($params);
+    if (!$success) {
         throw new Exception("Failed to retrieve centre");
     }
     else {
-        $centre = $stmt->getMessage();
+        $centre = $stmt->fetch();
     }
 
 }
@@ -87,7 +87,7 @@ $connection = null;
                         <?php
                         
                         for($i=0; $i< $centre['rating']; $i++){
-                            echo '<img class="inline h1-1" src images/star_full.png" alt="Star rating">';
+                            echo '<img class="inline h1-1" src = "images/star_full.png" alt="Star rating">';
 
                         }
 

@@ -33,8 +33,8 @@
             <input id="director" type="text" name="director" class="narrow" value="" disabled>
             <div class="error"></div>
 
-            <label for="released" class="label">Release date</label>
-            <input id="released" type="date" name="released" class="narrow" value="" disabled>
+            <label for="release_date" class="label">Release date</label>
+            <input id="release_date" type="date" name="release_date" class="narrow" value="" disabled>
             <div class="error"></div>
 
             <label for="company" class="label">Production company</label>
@@ -81,13 +81,13 @@
             </div>
             <div class="error"></div>
 
-            <label for="genres" class="label">Genres</label>
+            <label for="genre" class="label">genre</label>
             <div class="wide">
-                <input id="pref-action" type="checkbox" name="genres[]" value="action" disabled>
+                <input id="pref-action" type="checkbox" name="genre[]" value="action" disabled>
                 <label for="pref-action">Action</label>
-                <input id="pref-comedy" type="checkbox" name="genres[]" value="comedy" disabled>
+                <input id="pref-comedy" type="checkbox" name="genre[]" value="comedy" disabled>
                 <label for="pref-comedy">Comedy</label>
-                <input id="pref-romance" type="checkbox" name="genres[]" value="romance" disabled>
+                <input id="pref-romance" type="checkbox" name="genre[]" value="romance" disabled>
                 <label for="pref-romance">Romance</label>
             </div>
             <div class="error"></div>

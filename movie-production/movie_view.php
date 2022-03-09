@@ -1,3 +1,29 @@
+<?php
+require_once "include/database_connection.php";
+
+try
+{
+    $params = array(
+        'id' => $_GET['id']
+    );
+    $sql = 'SELECT * FROM movie WHERE id = :id';
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute($params);
+    if (!$success) {
+        throw new Exception("Failed to retrieve patient");
+    }
+    else {
+        $data = $stmt->fetch();
+    }
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,38 +54,38 @@
             <tbody>
                 <tr>
                     <th>Director</th>
-                    <td>Bridgette Fitzpatrick</td>
+                    <td><?= $data['director'] ?></td>
                     <td rowspan="7" class="centered">
                         <img src="images/default_movie.png" alt="Default movie image">
                     </td>
                 </tr>
                 <tr>
                     <th>Release date</th>
-                    <td>2010-07-30</td>
+                    <td><?= $data['release_date'] ?></td>
                 </tr>
                 <tr>
                     <th>Production company</th>
-                    <td>Warped Productions</td>
+                    <td><?= $data['company'] ?></td>
                 </tr>
                 <tr>
                     <th>Synopsis</th>
                     <td>
-                        Integer et sapien vitae augue luctus tristique non neque tristique, egestas nisi sit amet, maximus 
-                        lorem. Ut sit amet sapien a elit bibendum viverra ac non purus. 
+                    <?= $data['synopsis'] ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Genres</th>
-                    <td>Action, Romance</td>
+                    <th>genre</th>
+                    <td><?= $data['genre'] ?></td>
                 </tr>
                 <tr>
                     <th>Rating</th>
                     <td>
+                    <?= $data['rating'] ?>
+                        <!-- <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
                         <img class="inline h-1" src="images/star_full.png" alt="Star rating">
-                        <img class="inline h-1" src="images/star_full.png" alt="Star rating">
-                        <img class="inline h-1" src="images/star_empty.png" alt="No star rating">
+                        <img class="inline h-1" src="images/star_empty.png" alt="No star rating"> -->
                     </td>
                 </tr>
             </tbody>

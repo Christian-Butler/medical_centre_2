@@ -1,3 +1,30 @@
+<?php
+require_once "include/database_connection.php";
+
+try
+{
+    $params = array(
+        'id' => $_GET['id']
+    );
+    $sql = 'SELECT * FROM company WHERE id = :id';
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute($params);
+    if (!$success) {
+        throw new Exception("Failed to retrieve patient");
+    }
+    else {
+        $company = $stmt->fetch();
+    }
+}
+catch(PDOException $e) {
+    echo "Error: " . $e->getMessage();
+}
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,21 +49,22 @@
     </nav>
 
     <main class="main">
-        <h1 class="mt-1 mb-1">Warped Productions</h1>
+        <h1 class="mt-1 mb-1"><?= $company["name"] ?></h1>
             
         <table class="table">
             <tbody>
                 <tr>
                     <th>Address</th>
-                    <td>11 Donald Place, Midletown, Co. Cork</td>
+                    <td><?= $company["address"] ?></td>
                 </tr>
                 <tr>
                     <th>Phone</th>
-                    <td>(021) 551861</td>
+                    <td><?= $company["phone_number"] ?></td>
                 </tr>
                 <tr>
                     <th>Website</th>
                     <td>
+                    <?= $company["website"] ?>
                         <a href="https://www.warped-productions.com/" target="_blank">
                             https://www.warped-productions.com/
                         </a>
@@ -45,6 +73,7 @@
                 <tr>
                     <th>Description</th>
                     <td>
+                    <?= $company["description"] ?>
                         Aliquam dui metus, efficitur a molestie ac, finibus nec nisl. 
                         Donec sagittis a augue id gravida. Sed hendrerit tempus sapien. 
                         Phasellus nec mi in enim scelerisque cursus et quis diam. 
@@ -55,15 +84,21 @@
                 </tr>
                 <tr>
                     <th>Number of movies</th>
-                    <td>0-10</td>
+                    <td>
+                    <?= $company["number_of_movies"] ?>
+                    0-10</td>
                 </tr>
                 <tr>
                     <th>Total box office</th>
-                    <td>€12,344,743</td>
+                    <td>
+                    <?= $company["total_box_office"] ?>
+                    €12,344,743</td>
                 </tr>
                 <tr>
                     <th>Date founded</th>
-                    <td>1970-01-01</td>
+                    <td>
+                    <?= $company["date_founded"] ?>
+                    1970-01-01</td>
                 </tr>
             </tbody>
         </table>

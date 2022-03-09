@@ -1,5 +1,5 @@
 <?php
-require_once "include/database_connection.php"
+require_once "include/database_connection.php";
 
 try
 {
@@ -7,11 +7,11 @@ try
 
     $stmt = $connection->prepare($sql);
     $success = $stmt->execute();
-    if (!sucess) {
+    if (!$success) {
         throw new Exception("Failed to retrieve centres");
     }
     else {
-        $centres = $smt->fetchAll();
+        $centres = $stmt->fetchAll();
 
     }
     
@@ -68,7 +68,7 @@ $connection = null;
 
                 foreach($centres as $centre){
                     echo "<tr>";
-                    echo "<td><a href='centre_view.php?id=".centre['id']."'>".centre['title']."</a></td>";
+                    echo "<td><a href='centre_view.php?id=".$centre['id']."'>".$centre['title']."</a></td>";
                     echo "<td>".$centre['address']."</td>";
                     echo "<td>".$centre['phone']."</td>";
                     echo "<td>".$centre['type']."</td>";

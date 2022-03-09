@@ -1,3 +1,35 @@
+<?php
+require_once "include/database_connection.php";
+
+
+try{
+    $sql ="SELECT * FROM movie";
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute();
+
+    if (!$success)  {
+        throw new Exception("Could not retrieve all the movies");
+    }
+
+    $movies=$stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // echo "<pre>";
+    // print_r($patients);
+    // echo "</pre>";
+}
+catch (Exception $e) {
+    echo "Error" . $e->getMessage();
+}
+
+?>
+
+
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +68,19 @@
                     </tr>
                 </thead>
                 <tbody>
+
+                <?php foreach ($movies as $movie) { ?>
                     <tr>
+                        <td><input type="radio" name="movie_id" value="<?= $movie["id"]?>"></td>
+                        <td>
+                            <a href="movie_view.php?id=<?= $movie ["id"] ?>"><?= $movie["title"] ?></a>
+                        </td>
+                        <td><?= $movie["director"] ?></td>
+                        <td><?= $movie["release_date"] ?></td>
+                        <td><?= $movie["company"] ?></td>
+                    </tr>
+                    <?php } ?> 
+                    <!--<tr>
                         <td><input type="radio" name="movie_id" id="1"></td>
                         <td>
                             <a href="movie_view.php">Recruit Of The Moon</a>
@@ -89,7 +133,7 @@
                         <td>Rick Turner</td>
                         <td>1985-11-05</td>
                         <td>Interstellar Studios</td>
-                    </tr>
+                    </tr>!-->
                 </tbody>
             </table>
             <div class="mt-1 buttons">

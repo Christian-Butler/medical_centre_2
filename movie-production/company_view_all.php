@@ -1,3 +1,30 @@
+<?php
+include_once "include/database_connection.php";
+ 
+
+  try
+  { 
+      $sql = 'SELECT * FROM company';
+
+      $stmt = $connection->prepare($sql);
+      $success= $stmt->execute();
+      if (!$success) {
+          throw new Exception("Failed to retrieve company");
+      }
+      else {
+        $companies = $stmt->fetchAll();
+
+
+      }
+
+  }
+  catch(PDOException $e) {
+      echo "Error: ". $e->getMessage();
+  }
+
+  $connection = null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +61,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+            <?php
+
+              foreach($companies as $company) {
+              echo "<tr>";
+              echo "<td><a href='company_view.php?id=".$company['id']."'>".$company['name']."</a></td>";
+              echo "<td>".$company['address']."</td>";
+              echo "<td>".$company['phone_number']."</td>";
+              echo "<td>".$company['website']."</td>";
+              echo "</tr>";
+              }
+              ?>
+                <!-- <tr>
                     <td>
                         <a href="company_view.php">Warped Productions</a>
                     </td>
@@ -81,7 +119,7 @@
                     <td>34 Moore Street, Athlone, Co Westmeath</td>
                     <td>(041) 915156</td>
                     <td>http://mutual-title-productions.com/</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
     </main>

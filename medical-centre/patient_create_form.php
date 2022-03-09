@@ -74,23 +74,23 @@ catch(Exception $e) {
 
             <label for="name" class="label">Name</label>
             <input id="name" type="text" name="name" class="narrow" value="<?php if(isset($data["name"])) echo $data["name"];  ?>">
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["name"])) echo $errors["name"]; ?></div>
 
             <label for="address" class="label">Address</label>
             <input id="address" type="text" name="address" class="wide" value="<?php if(isset($data["address"])) echo $data["address"];  ?>">
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["address"])) echo $errors["address"]; ?></div>
 
             <label for="phone" class="label">Phone</label>
             <input id="phone" type="tel" name="phone" class="narrow" value="<?php if(isset($data["phone"])) echo $data["phone"];  ?>">
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["phone"])) echo $errors["phone"]; ?></div>
 
             <label for="email" class="label">Email</label>
             <input id="email" type="email" name="email" class="wide" value="<?php if(isset($data["email"])) echo $data["email"];  ?>">
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["email"])) echo $errors["email"]; ?></div>
 
             <label for="dob" class="label">Date of birth</label>
             <input id="dob" type="date" name="dob" class="narrow" value="<?php if(isset($data["dob"])) echo $data["dob"];  ?>">
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["dob"])) echo $errors["dob"]; ?></div>
 
             <label for="centre" class="label">Medical centre</label>
             <div class="wide">

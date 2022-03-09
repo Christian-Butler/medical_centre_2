@@ -8,7 +8,7 @@ function sanitize_input($data) {
     return $data;
 }
 
-function validate_title($Title) {
+function validate_title($title) {
     $pattern = "/^[a-zA-Z-' ]*$/";
     return preg_match($pattern, $title) === 1;
 }
@@ -47,13 +47,13 @@ function movie_validate($data) {
     //-------------------------------------------------------------------------
     // validate title
     //-------------------------------------------------------------------------
-    if (empty($data["Title"])) {
-        $errors["Title"] = "The title field is required.";
+    if (empty($data["title"])) {
+        $errors["title"] = "The title field is required.";
     }
     else {
-        $movie["Title"] = sanitize_input($data["Title"]);
-        if (!validate_name($movie["Title"])) {
-            $errors["Title"] = "Only letters and spaces are allowed.";
+        $movie["title"] = sanitize_input($data["title"]);
+        if (!validate_title($movie["title"])) {
+            $errors["title"] = "Only letters and spaces are allowed.";
         }
     }
     
@@ -65,7 +65,7 @@ function movie_validate($data) {
     }
     else {
         $movie["director"] = sanitize_input($data["director"]);
-        if (!validate_director($movie["director"])) {
+        if (!validate_title($movie["director"])) {
             $errors["director"] = "The title should only have letters, numbers and spaces";
         }
     }
@@ -73,13 +73,13 @@ function movie_validate($data) {
     //-------------------------------------------------------------------------
     // validate date
     //-------------------------------------------------------------------------
-    if (empty($data["date"])) {
-        $errors["date"] = "The date field is required.";
+    if (empty($data["release_date"])) {
+        $errors["release_date"] = "The release_date field is required.";
     }
     else {
-        $movie["date"] = sanitize_input($data["date"]);
-        if (!validate_date($movie["date"])) {
-            $errors["date"] = "Invalid date.";
+        $movie["release_date"] = sanitize_input($data["release_date"]);
+        if (!validate_date($movie["release_date"])) {
+            $errors["release_date"] = "Invalid date.";
         }
     }
     
@@ -91,7 +91,7 @@ function movie_validate($data) {
     }
     else {
         $movie["company"] = sanitize_input($data["company"]);
-        $valid_companies = [
+        /*$valid_companies = [
             "Warped Productions",
             "Interstellar Studios",
             "Enclave Animations",
@@ -101,7 +101,7 @@ function movie_validate($data) {
         ];
         if (!in_array($movie["company"], $valid_companies)) {
             $errors["company"] = "Invalid Production company option";
-        }
+        }*/
     }
 
      //-------------------------------------------------------------------------
@@ -112,7 +112,7 @@ function movie_validate($data) {
     }
     else {
         $movie["synopsis"] = sanitize_input($data["synopsis"]);
-        if (!validate_date($movie["synopsis"])) {
+        if (!validate_title($movie["synopsis"])) {
             $errors["synopsis"] = "Invalid synopsis.";
         }
     }
@@ -125,28 +125,28 @@ function movie_validate($data) {
     }
     else {
         $movie["rating"] = sanitize_input($data["rating"]);
-        $valid_rating = ["None", "VHI", "Laya", "Irish Life"];
+        /*$valid_rating = ["None", "VHI", "Laya", "Irish Life"];
         if (!in_array($movie["rating"], $valid_rating)) {
             $errors["rating"] = "Invalid rating option";
-        }
+        }*/
     }
     
     //-------------------------------------------------------------------------
     // validate preferences
     //-------------------------------------------------------------------------
-    if (empty($data["genres"])) {
-        echo "testing";
-        $errors["genres"] = "The genres field is required.";
+    if (empty($data["genre"])) {
+
+        $errors["genre"] = "The genre field is required.";
     }
     else {
-        $movie["genres"] = [];
-        foreach ($data["genres"] as $preference) {
-            $movie["genres"][] = sanitize_input($preference);
+        $movie["genre"] = [];
+        foreach ($data["genre"] as $preference) {
+            $movie["genre"][] = sanitize_input($preference);
         }
-        $valid_preferences = ["Action", "Comedy", "Romance"];
-        foreach ($movie["genres"] as $preference) {
+        $valid_preferences = ["action", "comedy", "romance"];
+        foreach ($movie["genre"] as $preference) {
             if (!in_array($preference, $valid_preferences)) {
-                $errors["genres"] = "Invalid Genres option";
+                $errors["genre"] = "Invalid genre option";
                 break;
             }
         }

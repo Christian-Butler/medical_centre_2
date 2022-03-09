@@ -4,7 +4,7 @@ require_once "include/database_connection.php"
 
 require_once "include/patient_validate.php"
 
-if ($_SERVER["REQUEST_METHOD"])
+if ($_SERVER["REQUEST_METHOD"]){
 
 
 [$patient, $errors]= patient_validate($_POST);
@@ -20,7 +20,7 @@ if (empty($errors)) {
     $sql ="UPDATE patient SET " . 
       "name =:name, " . "address = :address, " . "phone = :phone, " . 
       "email =:email,"  . "dob = :dob, "   . 
-      "centre_id = :centre_id, " . "insurance= :insurance,"   .
+      "centre = :centre, " . "insurance= :insurance,"   .
       "preferences = :preferences" . 
       "WHERE id = :id";
         
@@ -33,7 +33,7 @@ if (empty($errors)) {
       "phone"  => $patient["phone"],
       "email"  => $patient["email"],
       "dob"  => $patient["dob"],
-      "centre_id"  => $patient["centre_id"],
+      "centre"  => $patient["centre"],
       "insurance"  => $patient["insurance"],
       "preferences"  => $patient["preferences"]
   ];
