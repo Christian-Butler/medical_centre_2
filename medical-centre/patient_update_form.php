@@ -120,27 +120,40 @@ else {
 
             <label for="insurance" class="label">Insurance</label>
             <div class="wide">
-                <input id="insure-none" type="radio" name="insurance" value="None">
+                <input id="insure-none" type="radio" name="insurance" value="None"
+                <?php if (isset($data["insurance"]) && $data["insurance"] == "None") echo "checked";  ?>
+                >
                 <label for="insure-none">None</label>
-                <input id="insure-vhi" type="radio" name="insurance" value="VHI">
+                <input id="insure-vhi" type="radio" name="insurance" value="VHI"
+                <?php if (isset($data["insurance"]) && $data["insurance"] == "VHI") echo "checked";  ?>
+                >
                 <label for="insure-vhi">VHI</label>
-                <input id="insure-laya" type="radio" name="insurance" value="Laya">
+                <input id="insure-laya" type="radio" name="insurance" value="Laya"
+                <?php if (isset($data["insurance"]) && $data["insurance"] == "Laya") echo "checked";  ?>
+                >
                 <label for="insure-laya">Laya</label>
-                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life">
+                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life"
+                <?php if (isset($data["insurance"]) && $data["insurance"] == "Irish Life") echo "checked";  ?>
+                >
                 <label for="insure-irish-life">Irish Life</label>
             </div>
-            <div class="error"></div>
-
+            <div class="error"><?php if (isset($errors["insurance"])) echo $errors["insurance"]; ?></div>
             <label for="preferences" class="label">Communication preferences</label>
             <div class="wide">
-                <input id="pref-email" type="checkbox" name="preferences[]" value="Email">
+                <input id="pref-email" type="checkbox" name="preferences[]" value="Email"
+                   <?php if (isset($data["preferences"]) && in_array("Email", $data["preferences"])) echo "checked"; ?>
+                >
                 <label for="pref-email">Email</label>
-                <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone">
+                <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone"
+                <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>
+                >
                 <label for="pref-phone">Phone</label>
-                <input id="pref-post" type="checkbox" name="preferences[]" value="Post">
+                <input id="pref-post" type="checkbox" name="preferences[]" value="Post"
+                <?php if (isset($data["preferences"]) && in_array("Post", $data["preferences"])) echo "checked"; ?>
+                >
                 <label for="pref-post">Post</label>
             </div>
-            <div class="error"></div>
+            <div class="error"><?php if (isset($errors["preferences"]) && in_array("Post", $errors["preferences"])) echo $errors["preferences"]; ?></div>
 
             <div class="buttons">
                 <button class="button primary" type="submit" formaction="patient_update.php">Update</button>

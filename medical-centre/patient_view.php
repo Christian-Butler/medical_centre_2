@@ -119,6 +119,7 @@ catch(Exception $e) {
             <div class="mt-1 buttons">
                 <button type="submit" class="button warning" formaction="patient_update_form.php">Update</button>
                 <button type="submit" class="button danger" formaction="patient_delete_form.php">Delete</button>
+                <input type="hidden" name="patient_id" />
             </div>
         </form>
     </main>

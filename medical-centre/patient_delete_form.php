@@ -1,43 +1,64 @@
 <?php
-
 require_once "include/database_connection.php";
-
-try
+session_start();
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"]))
 {
-    $params = array(
-        'id' => $_POST['id']
-    );
-    $sql = 'SELECT * FROM patient WHERE id = :id';
+    $data=$_SESSION["data"];
+    $errors=$_SESSION["errors"];
+}
+else {
+
+    try {
+    $patient_id =$_POST['patient_id'];
+    $sql ="SELECT * FROM patient WHERE id = :id";
+
+    $params = [
+        "id" => $patient_id
+    ];
 
     $stmt = $connection->prepare($sql);
     $success = $stmt->execute($params);
-    if (!$success  ) {
-        throw new Exception("Failed to retrieve patient");
-    }
-    else {
-        $data = $stmt->fetch();
-    }
-}
-catch (PDOException $e){
-    echo "Error: " . $e->getMessage();
-}
 
-try{
-    $sql = 'SELECT * FROM medical_centre';
-    $stmt = $connection->prepare($sql);
-    $success=$stmt->execute();
-    if (!$success) {
-        throw new Exception("Failed to retrieve centres");
+    if (!$success) 
+    {
+        throw new Exception("Could not retrieve selected patient");
     }
-    else {
-        $centres = $stmt->fetchAll();
+    else{
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        $data['preferences'] = explode(",", $data['preferences']);
     }
 }
-catch(PDOException $e) {
-    echo "Error: " . $e->getMessage();
-}
+    catch(Exception $e) {
+        echo "Error: " .$e->getMessage();
+    }
 
-$getconnection
+    $errors = [];
+
+    try{
+        $sql = "SELECT * FROM medical_centre";
+        $stmt=$connection->prepare($sql);
+        $success =$stmt->execute();
+            
+        if (!$success) {
+            throw new Exception("Could not retrieve the medical centre");
+        }
+        else {
+            $centres = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+        
+    }
+    catch(Exception $e) {
+        echo "Error: " .$e->getMessage();
+    }
+    
+    
+    // echo "<pre>\$centres = ";
+    // print_r($centres);
+    // echo "</pre>";
+        
+       
+    
+}
 
 ?>
 <!DOCTYPE html>
@@ -96,7 +117,7 @@ $getconnection
                       echo $centre['id'];
 
                       echo"<option value=".$centre['id']."'";
-                      if (isset($data["centre"]) && $date["centre"] ==['id']) echo "selected";
+                      if (isset($data["centre"]) && $data["centre"] ==['id']) echo "selected";
                       
                       echo ">";
                       echo $centre['title'];
@@ -147,15 +168,15 @@ $getconnection
             <label for="preferences" class="label">Communication preferences</label>
             <div class="wide">
                 <input id="pref-email" type="checkbox" name="preferences[]" value="Email" disabled
-                   <?php if (isset($data["preferences"]) && in_array("Email", $data["preferences"])) echo $errors["preferences"];; ?>
+                   <?php if (isset($data["preferences"]) && in_array("Email", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-email">Email</label>
                 <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone" disabled
-                <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo $errors["preferences"];; ?>
+                <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-phone">Phone</label>
                 <input id="pref-post" type="checkbox" name="preferences[]" value="Post" disabled
-                <?php if (isset($data["preferences"]) && in_array("Post", $data["preferences"])) echo $errors["preferences"]; ?>
+                <?php if (isset($data["preferences"]) && in_array("Post", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-post">Post</label>
             </div>

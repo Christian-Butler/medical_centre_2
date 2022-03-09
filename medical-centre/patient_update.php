@@ -1,8 +1,8 @@
 <?php
-require_once "include/database_connection.php"
+require_once "include/database_connection.php";
 
 
-require_once "include/patient_validate.php"
+require_once "include/patient_validate.php";
 
 if ($_SERVER["REQUEST_METHOD"]){
 
@@ -16,7 +16,7 @@ if (empty($errors)) {
 }
 
 
-  try[
+  // try{
     $sql ="UPDATE patient SET " . 
       "name =:name, " . "address = :address, " . "phone = :phone, " . 
       "email =:email,"  . "dob = :dob, "   . 
@@ -24,7 +24,7 @@ if (empty($errors)) {
       "preferences = :preferences" . 
       "WHERE id = :id";
         
-  ]
+  // }
 
   $params = [
       "id" => $patient["id"],
@@ -45,5 +45,6 @@ if (empty($errors)) {
  if (!$success) {
     throw new Exception("Could not retrieve the medical centre");
   }
+}
 
-
+?>
