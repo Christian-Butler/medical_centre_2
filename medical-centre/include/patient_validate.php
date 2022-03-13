@@ -115,11 +115,11 @@ function patient_validate($data) {
     // else {
         $patient["centre"] = sanitize_input($data["centre"]);
     //     $valid_centres = [
-    //         "Talbot St Medical Centre",
-    //         "Highfield Alzheimer’s Care Centre",
+    //         "Talbot St Medical centre",
+    //         "Highfield Alzheimer’s Care centre",
     //         "Swords Health Center",
-    //         "Greystones Medical Centre",
-    //         "Bray Medical Centre",
+    //         "Greystones Medical centre",
+    //         "Bray Medical centre",
     //         "Merrion Fertility Clinic"
     //     ];
     //     if (!in_array($patient["centre"], $valid_centres)) {

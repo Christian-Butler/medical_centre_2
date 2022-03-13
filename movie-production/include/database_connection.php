@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "";  //this is password for MAMP, Xampp is blank (change this)
+$password = "root";  //this is password for MAMP, Xampp is blank (change this)
 $dbname = "movie_production";
   
 try{

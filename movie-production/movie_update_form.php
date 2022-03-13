@@ -1,3 +1,64 @@
+<?php
+require_once "include/database_connection.php";
+session_start();
+if (isset($_SESSION["data"]) and isset($_SESSION["errors"]))
+{
+    $data=$_SESSION["data"];
+    $errors=$_SESSION["errors"];
+}
+else {
+    $patient_id =$_POST['movie_id'];
+    $sql ="SELECT * FROM movie WHERE id = :id";
+
+    $params = [
+        "id" => $patient_id
+    ];
+
+    $stmt = $connection->prepare($sql);
+    $success = $stmt->execute($params);
+
+    if (!$success) 
+    {
+        throw new Exception("Could not retrieve selected movie");
+    }
+
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $data['preferences'] = explode(",", $data['preferences']);
+    $errors =[];
+
+    
+    $sql = "SELECT * FROM movie_production";
+        
+    
+       
+    $stmt=$connection->prepare($sql);
+    $success =$stmt->execute();
+        
+    if (!$success) {
+        throw new Exception("Could not retrieve the movie");
+    }
+    
+    $movies = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // echo "<pre>\$centres = ";
+    // print_r($centres);
+    // echo "</pre>";
+        
+       
+    
+}
+
+
+
+
+
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,24 +84,26 @@
 
     <main class="main">
         <form method="post" class="form">
+        <input type="hidden" name="id" value="<?= $data['id'] ?>">
             <h1 class="heading mb-1">Update existing movie</h1>
             
             <label for="title" class="label">Title</label>
-            <input id="title" type="text" name="title" class="narrow" value="">
+            <input id="title" type="text" name="title" class="narrow" value="<?php if (isset($data["title"])) echo $data["title"];?>">
             <div class="error"></div>
 
             <label for="director" class="label">Director</label>
-            <input id="director" type="text" name="director" class="narrow" value="">
+            <input id="director" type="text" name="director" class="narrow" value="<?php if (isset($data["director"])) echo $data["director"];?>">
             <div class="error"></div>
 
             <label for="release_date" class="label">Release date</label>
-            <input id="release_date" type="date" name="release_date" class="narrow" value="">
+            <input id="release_date" type="date" name="release_date" class="narrow" value="<?php if (isset($data["name"])) echo $data["name"];?>">
             <div class="error"></div>
 
             <label for="company" class="label">Production company</label>
             <div class="wide">
-                <select name="company" id="">
-                    <option value="Warped Productions">
+                <select id="company" name="company">
+                    </
+                    <!-- <option value="Warped Productions">
                         Warped Productions
                     </option>
                     <option value="Interstellar Studios">
@@ -57,7 +120,7 @@
                     </option>
                     <option value="Mutual Title Productions">
                         Mutual Title Productions
-                    </option>
+                    </option> -->
                 </select>
             </div>
             <div class="error"></div>

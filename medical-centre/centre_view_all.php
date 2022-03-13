@@ -44,7 +44,7 @@ $connection = null;
     <nav>
         <div class="nav">
             <a href="index.php" class="nav-item">Home</a>
-            <a href="centre_view_all.php" class="nav-item active">Centres</a>
+            <a href="centre_view_all.php" class="nav-item active">centres</a>
             <a href="patient_view_all.php" class="nav-item">Patients</a>
             <a href="contact_us.php" class="nav-item">Contact</a>
             <a href="about_us.php" class="nav-item">About</a>
@@ -66,7 +66,7 @@ $connection = null;
             <tbody>
                 <?php
 
-                foreach($centres as $centre){
+                foreach($centre as $centre){
                     echo "<tr>";
                     echo "<td><a href='centre_view.php?id=".$centre['id']."'>".$centre['title']."</a></td>";
                     echo "<td>".$centre['address']."</td>";
@@ -77,7 +77,7 @@ $connection = null;
                 ?>
                 <!-- <tr>
                     <td>
-                        <a href="centre_view.php">Talbot St Medical Centre</a>
+                        <a href="centre_view.php">Talbot St Medical centre</a>
                     </td>
                     <td>Unit 27, Irish Life Mall 1, Talbot St, Dublin, D01 P620</td>
                     <td>(01) 872 7087</td>
@@ -85,7 +85,7 @@ $connection = null;
                 </tr>
                 <tr>
                     <td>
-                        <a href="centre_view.php">Highfield Alzheimer’s Care Centre</a>
+                        <a href="centre_view.php">Highfield Alzheimer’s Care centre</a>
                     </td>
                     <td>9 Swords Rd, Whitehall, Dublin, D09 H343</td>
                     <td>(01) 837 4444</td>
@@ -101,7 +101,7 @@ $connection = null;
                 </tr>
                 <tr>
                     <td>
-                        <a href="centre_view.php">Greystones Medical Centre</a>
+                        <a href="centre_view.php">Greystones Medical centre</a>
                     </td>
                     <td>Mill Rd, Killincarrig, Greystones, Co. Wicklow, A63 YE86</td>
                     <td>(01) 287 4275</td>
@@ -109,7 +109,7 @@ $connection = null;
                 </tr>
                 <tr>
                     <td>
-                        <a href="centre_view.php">Bray Medical Centre</a>
+                        <a href="centre_view.php">Bray Medical centre</a>
                     </td>
                     <td>Herbert Rd, Bray, Co. Wicklow, A98 K1K0</td>
                     <td>(01) 286 2035</td>

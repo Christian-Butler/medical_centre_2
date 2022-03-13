@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (empty($errors)) {
 
         try {
-            $center_id = intval($patient['centre']);
+            $centre_id = intval($patient['centre']);
             $preferences = implode(',' ,$patient['preferences']);
         
         
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             "phone" => $patient["phone"],
             "email" => $patient["email"],
             "dob" => $patient["dob"],
-            "centre" => $patient["centre"],
+            "centre" => $centre_id,
             "insurance" => $patient["insurance"],
             "preferences" => $preferences
         );
@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         }
     
         
-        //header("Location: patient_view_all.php");
+        header("Location: patient_view_all.php");
     }
     catch(PDOException $e){
         echo "Error " . $e->getMessage();

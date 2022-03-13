@@ -14,7 +14,7 @@
     <nav>
         <div class="nav">
             <a href="index.php" class="nav-item">Home</a>
-            <a href="centre_view_all.php" class="nav-item">Centres</a>
+            <a href="centre_view_all.php" class="nav-item">centres</a>
             <a href="patient_view_all.php" class="nav-item">Patients</a>
             <a href="contact_us.php" class="nav-item">Contact</a>
             <a href="about_us.php" class="nav-item active">About</a>

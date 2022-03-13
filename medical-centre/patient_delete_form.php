@@ -56,7 +56,7 @@ else {
     // print_r($centres);
     // echo "</pre>";
         
-       
+    
     
 }
 
@@ -77,7 +77,7 @@ else {
     <nav>
         <div class="nav">
             <a href="index.php" class="nav-item">Home</a>
-            <a href="centre_view_all.php" class="nav-item">Centres</a>
+            <a href="centre_view_all.php" class="nav-item">centres</a>
             <a href="patient_view_all.php" class="nav-item">Patients</a>
             <a href="contact_us.php" class="nav-item">Contact</a>
             <a href="about_us.php" class="nav-item">About</a>
@@ -123,43 +123,44 @@ else {
                       echo $centre['title'];
                       echo "</option>";
                      }
-                    // <!-- <option value="Talbot St Medical Centre">
-                    //     Talbot St Medical Centre
+                    // <!-- <option value="Talbot St Medical centre">
+                    //     Talbot St Medical centre
                     // </option>
-                    // <option value="Highfield Alzheimer’s Care Centre">
-                    //     Highfield Alzheimer’s Care Centre
+                    // <option value="Highfield Alzheimer’s Care centre">
+                    //     Highfield Alzheimer’s Care centre
                     // </option>
                     // <option value="Swords Health Center">
                     //     Swords Health Center
                     // </option>
-                    // <option value="Greystones Medical Centre">
-                    //     Greystones Medical Centre
+                    // <option value="Greystones Medical centre">
+                    //     Greystones Medical centre
                     // </option>
-                    // <option value="Bray Medical Centre">
-                    //     Bray Medical Centre
+                    // <option value="Bray Medical centre">
+                    //     Bray Medical centre
                     // </option>
                     // <option value="Merrion Fertility Clinic">
                     //     Merrion Fertility Clinic
                     // </option> -->
+                    
                     ?>
                 </select>
             </div>
             <div class="error"><?php if (isset($errors["centre"])) echo $errors["centre"]; ?></div>
             <label for="insurance" class="label">Insurance</label>
             <div class="wide">
-                <input id="insure-none" type="radio" name="insurance" value="None" disabled
+                <input id="insure-none" type="radio" name="insurance" value="None" 
                 <?php if (isset($data["insurance"]) && $data["insurance"] == "None") echo "checked";  ?>
                 >
                 <label for="insure-none">None</label>
-                <input id="insure-vhi" type="radio" name="insurance" value="VHI" disabled
+                <input id="insure-vhi" type="radio" name="insurance" value="VHI" 
                 <?php if (isset($data["insurance"]) && $data["insurance"] == "VHI") echo "checked";  ?>
                 >
                 <label for="insure-vhi">VHI</label>
-                <input id="insure-laya" type="radio" name="insurance" value="Laya" disabled
+                <input id="insure-laya" type="radio" name="insurance" value="Laya" 
                 <?php if (isset($data["insurance"]) && $data["insurance"] == "Laya") echo "checked";  ?>
                 >
                 <label for="insure-laya">Laya</label>
-                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life" disabled
+                <input id="insure-irish-life" type="radio" name="insurance" value="Irish Life" 
                 <?php if (isset($data["insurance"]) && $data["insurance"] == "Irish Life") echo "checked";  ?>
                 >
                 <label for="insure-irish-life">Irish Life</label>
@@ -167,15 +168,15 @@ else {
             <div class="error"><?php if (isset($errors["insurance"])) echo $errors["insurance"]; ?></div>
             <label for="preferences" class="label">Communication preferences</label>
             <div class="wide">
-                <input id="pref-email" type="checkbox" name="preferences[]" value="Email" disabled
+                <input id="pref-email" type="checkbox" name="preferences[]" value="Email" 
                    <?php if (isset($data["preferences"]) && in_array("Email", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-email">Email</label>
-                <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone" disabled
+                <input id="pref-phone" type="checkbox" name="preferences[]" value="Phone" 
                 <?php if (isset($data["preferences"]) && in_array("Phone", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-phone">Phone</label>
-                <input id="pref-post" type="checkbox" name="preferences[]" value="Post" disabled
+                <input id="pref-post" type="checkbox" name="preferences[]" value="Post" 
                 <?php if (isset($data["preferences"]) && in_array("Post", $data["preferences"])) echo "checked"; ?>
                 >
                 <label for="pref-post">Post</label>
@@ -185,6 +186,7 @@ else {
                 <button class="button primary" type="submit" formaction="patient_delete.php">Delete</button>
                 <a class="button light" href="patient_view_all.php">Cancel</a>
             </div>
+            <input type="hidden" name = "id" value = "<?= $patient_id ?>">
         </form>
     </main>
 
